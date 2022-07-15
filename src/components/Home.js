@@ -1,11 +1,11 @@
-import Card from '../UI/Card';
 import { useState, useEffect } from 'react';
 import { db } from '../firebase/firebase-config';
 import { onValue, ref } from 'firebase/database';
-import { Link } from 'react-router-dom';
+import CategoriesCard from './CategoriesCard';
 
-function Categories() {
+function Home() {
   const [categories, setCategories] = useState([]);
+  console.log(categories);
 
   useEffect(() => {
     let ignore = true;
@@ -22,27 +22,7 @@ function Categories() {
       console.log('unmount');
     };
   }, []);
-
-  return (
-    <>
-      {categories.map(cat => {
-        return (
-          <Link to={`/home/${cat[0]}`}>
-            <Card key={cat}>
-              <div className='h-4/5 border-2 border-red-300'>
-                <img
-                  className='w-full h-full object-cover rounded-md '
-                  src={cat[1][0].thumbnail}
-                  alt=''
-                />
-              </div>
-              <h1 className='uppercase text-center mt-4'>{cat[0]}</h1>
-            </Card>
-          </Link>
-        );
-      })}
-    </>
-  );
+  return <CategoriesCard categories={categories} />;
 }
 
-export default Categories;
+export default Home;
