@@ -2,6 +2,7 @@ import Header from './components/Header';
 import Container from './UI/Container';
 import Home from './components/Home';
 import { Routes, Route } from 'react-router-dom';
+import Categories from './components/Categories';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/home' element={<Home />} />
+          <Route path='/home/:productId' element={<Categories />} />
         </Routes>
       </Container>
     </>
