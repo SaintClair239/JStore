@@ -8,23 +8,11 @@ function Categories() {
   const [products, setProducts] = useState([]);
   const params = useParams();
 
-  console.log(params.productId);
-  console.log(params);
-
   useEffect(() => {
-    let ignore = true;
-    if (ignore) {
-      onValue(ref(db, 'categories/' + params.productId), snapshot => {
-        const data = snapshot.val();
-        setProducts(data);
-      });
-      console.log('mount');
-    }
-
-    return () => {
-      ignore = false;
-      console.log('unmount');
-    };
+    onValue(ref(db, 'categories/' + params.productId), snapshot => {
+      const data = snapshot.val();
+      setProducts(Object.entries(data));
+    });
   }, [params]);
 
   return products.map(prod => {

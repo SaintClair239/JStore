@@ -5,18 +5,21 @@ function CategoriesCard({ categories }) {
   return (
     <>
       {categories.map(cat => {
-        console.log(cat);
         return (
           <Link to={`/home/${cat[0]}`}>
             <Card key={cat}>
-              <div className='h-4/5 border-2 border-red-300'>
+              <div className='h-4/5'>
                 <img
-                  className='w-full h-full object-cover rounded-md '
-                  src={cat[1][0].thumbnail}
+                  className='w-full h-full object-scale-down rounded-md '
+                  src={Object.values(cat[1])[0].thumbnail}
                   alt=''
                 />
               </div>
-              <h1 className='uppercase text-center mt-4'>{cat[0]}</h1>
+              <div className='w-full h-1/5 flex justify-center items-center'>
+                <h1 className='uppercase text-center font-bold tracking-widest'>
+                  {cat[0]}
+                </h1>
+              </div>
             </Card>
           </Link>
         );

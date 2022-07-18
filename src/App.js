@@ -3,6 +3,7 @@ import Container from './UI/Container';
 import Home from './components/Home';
 import { Routes, Route } from 'react-router-dom';
 import Categories from './components/Categories';
+import AboutProduct from './components/AboutProduct';
 
 function App() {
   return (
@@ -13,6 +14,10 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/home' element={<Home />} />
           <Route path='/home/:productId' element={<Categories />} />
+          <Route
+            path='/home/:productId/:productNum'
+            element={<AboutProduct />}
+          />
         </Routes>
       </Container>
     </>
