@@ -8,15 +8,11 @@ function Categories() {
   const [products, setProducts] = useState([]);
   const params = useParams();
 
-  console.log(params.productId);
-  console.log(Object.entries(products));
-
   useEffect(() => {
     onValue(ref(db, 'categories/' + params.productId), snapshot => {
       const data = snapshot.val();
       setProducts(Object.entries(data));
     });
-    console.log('mount');
   }, [params]);
 
   return products.map(prod => {

@@ -9,12 +9,10 @@ function Home() {
   useEffect(() => {
     onValue(ref(db, 'categories'), snapshot => {
       const data = snapshot.val();
-      console.log(Object.entries(data));
       setCategories(Object.entries(data));
     });
   }, []);
 
-  // return <div>hellos</div>;
   return <CategoriesCard categories={categories} />;
 }
 
