@@ -1,17 +1,8 @@
-import { useState, useEffect } from 'react';
-import { db } from '../firebase/firebase-config';
-import { onValue, ref } from 'firebase/database';
 import CategoriesCard from './CategoriesCard';
+import useFetchDB from '../hooks/useFetchDB';
 
 function Home() {
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    onValue(ref(db, 'categories'), snapshot => {
-      const data = snapshot.val();
-      setCategories(Object.entries(data));
-    });
-  }, []);
+  const [categories, setCategories] = useFetchDB([], 'categories', true);
 
   return <CategoriesCard categories={categories} />;
 }
