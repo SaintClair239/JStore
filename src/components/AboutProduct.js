@@ -8,9 +8,10 @@ function AboutProduct() {
   const params = useParams();
   const [currentProduct, setCurrentProduct] = useFetchDB(
     [],
-    `categories/${params.productId}/${params.productNum}`,
-    false
+    `categories/${params.categoryNum}/${params.categoryName}/${params.index}`
   );
+
+  console.log(currentProduct);
 
   // const [currentProduct, setCurrentProduct] = useState({});
   // const params = useParams();

@@ -10,11 +10,8 @@ const useFetchDB = (initialValue, endpoint, isBadData) => {
     if (ignore) {
       onValue(ref(db, endpoint), snapshot => {
         const data = snapshot.val();
-        if (isBadData) {
-          setState(Object.entries(data));
-        } else {
-          setState(data);
-        }
+        console.log(data);
+        setState(data);
       });
     }
     return () => {

@@ -6,12 +6,16 @@ function Categories() {
   const params = useParams();
   const [products, setProducts] = useFetchDB(
     [],
-    `categories/${params.productId}`,
-    true
+    `categories/${params.categoryNum}/${params.categoryName}`
   );
 
-  return products.map(prod => {
-    return <ProductsCard key={prod.id} prod={prod} params={params} />;
+  console.log(params);
+  console.log(`categories/${params.categoryNum}/${params.categoryName}`);
+
+  return products.map((prod, index) => {
+    return (
+      <ProductsCard key={prod.id} prod={prod} params={params} index={index} />
+    );
   });
 }
 
