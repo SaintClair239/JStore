@@ -13,9 +13,12 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/home' element={<Home />} />
-          <Route path='/home/:productId' element={<Categories />} />
           <Route
-            path='/home/:productId/:productNum'
+            path='/home/:categoryNum/:categoryName'
+            element={<Categories />}
+          />
+          <Route
+            path='/home/:categoryNum/:categoryName/:index/:productId'
             element={<AboutProduct />}
           />
         </Routes>

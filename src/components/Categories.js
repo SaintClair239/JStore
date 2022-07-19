@@ -1,22 +1,21 @@
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { db } from '../firebase/firebase-config';
-import { onValue, ref } from 'firebase/database';
 import ProductsCard from './ProductsCard';
+import useFetchDB from '../hooks/useFetchDB';
 
 function Categories() {
-  const [products, setProducts] = useState([]);
   const params = useParams();
+  const [products, setProducts] = useFetchDB(
+    [],
+    `categories/${params.categoryNum}/${params.categoryName}`
+  );
 
-  useEffect(() => {
-    onValue(ref(db, 'categories/' + params.productId), snapshot => {
-      const data = snapshot.val();
-      setProducts(Object.entries(data));
-    });
-  }, [params]);
+  console.log(params);
+  console.log(`categories/${params.categoryNum}/${params.categoryName}`);
 
-  return products.map(prod => {
-    return <ProductsCard key={prod.id} prod={prod} params={params} />;
+  return products.map((prod, index) => {
+    return (
+      <ProductsCard key={prod.id} prod={prod} params={params} index={index} />
+    );
   });
 }
 

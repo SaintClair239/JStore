@@ -14,8 +14,8 @@ function Header() {
   };
 
   return (
-    <nav>
-      <div className='w-full bg-blue-300 flex justify-center items-center sticky top-0'>
+    <nav className='sticky top-0'>
+      <div className='w-full bg-blue-300 flex justify-center items-center'>
         <Container className='flex justify-between items-center py-2'>
           <div>
             <Link to='/home'>
@@ -24,12 +24,16 @@ function Header() {
           </div>
 
           <div className='hidden md:flex'>
-            <input
-              className='rounded-xl mx-2 px-1'
-              type='search'
-              placeholder='Search...'
-            />
-            <SearchIcon className='w-5 mr-6' />
+            <Link to='/search'>
+              <div className='flex'>
+                <input
+                  className='rounded-xl mx-2 px-1'
+                  type='search'
+                  placeholder='Search...'
+                />
+                <SearchIcon className='w-5 mr-6' />
+              </div>
+            </Link>
 
             <ul className='flex justify-evenly'>
               <Link to='/home' className='mx-3'>

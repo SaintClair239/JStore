@@ -1,5 +1,7 @@
 import React from 'react';
 import { MenuIcon } from '@heroicons/react/outline';
+import { SearchIcon } from '@heroicons/react/outline';
+import { Link } from 'react-router-dom';
 
 function Menu(props) {
   return (
@@ -9,7 +11,17 @@ function Menu(props) {
       </div>
 
       <ul>
-        <li className='my-2'>Search</li>
+        <Link to='/search'>
+          <div className='flex items-center'>
+            <input
+              className='rounded-xl px-2'
+              type='search'
+              placeholder='Search...'
+            />
+            <SearchIcon className='w-5 mr-6 mx-2' />
+          </div>
+        </Link>
+
         <li className='my-2'>Home</li>
         <li className='my-2'>Cart</li>
         <li className='my-2'>Log In</li>
