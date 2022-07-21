@@ -10,7 +10,6 @@ const useFetchDB = (initialValue, endpoint, isBadData) => {
     if (ignore) {
       onValue(ref(db, endpoint), snapshot => {
         const data = snapshot.val();
-        console.log(data);
         setState(data);
       });
     }

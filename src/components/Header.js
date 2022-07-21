@@ -1,15 +1,19 @@
 import React from 'react';
-import { MenuIcon, SearchIcon } from '@heroicons/react/outline';
+import { MenuIcon } from '@heroicons/react/outline';
 import Container from '../UI/Container';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Menu from './Menu';
 import Overlay from '../UI/Overlay';
 import { Link } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebase/firebase-config';
+import AuthContext from '../context/AuthContext';
 
 function Header() {
+  const { currentUser } = useContext(AuthContext);
   const [toggleMenu, setToggleMenu] = useState(false);
 
-  const onClickMenuHandler = () => {
+  const menuHandler = () => {
     setToggleMenu(prevValue => !prevValue);
   };
 
@@ -24,34 +28,33 @@ function Header() {
           </div>
 
           <div className='hidden md:flex'>
-            <Link to='/search'>
-              <div className='flex'>
-                <input
-                  className='rounded-xl mx-2 px-1'
-                  type='search'
-                  placeholder='Search...'
-                />
-                <SearchIcon className='w-5 mr-6' />
-              </div>
-            </Link>
-
-            <ul className='flex justify-evenly'>
+            <ul className='flex justfiy-evenly'>
               <Link to='/home' className='mx-3'>
                 Home
               </Link>
-              <li className='mx-3'>Cart</li>
-              <li className='mx-3'>Log In</li>
+              <Link to='/cart' className='mx-3'>
+                Cart
+              </Link>
+              <li>
+                {currentUser ? (
+                  <p onClick={() => signOut(auth)}>Log Out</p>
+                ) : (
+                  <Link to='/login' className='mx-3'>
+                    Log In
+                  </Link>
+                )}
+              </li>
             </ul>
           </div>
 
           <div className='md:hidden'>
-            <MenuIcon className='w-8' onClick={onClickMenuHandler} />
+            <MenuIcon className='w-8' onClick={menuHandler} />
           </div>
         </Container>
 
         {toggleMenu && <Overlay />}
       </div>
-      {toggleMenu && <Menu onClick={onClickMenuHandler} />}
+      {toggleMenu && <Menu onClick={menuHandler} />}
     </nav>
   );
 }

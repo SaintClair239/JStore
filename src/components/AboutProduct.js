@@ -1,38 +1,12 @@
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { onValue, ref } from 'firebase/database';
-import { db } from '../firebase/firebase-config';
 import useFetchDB from '../hooks/useFetchDB';
 
 function AboutProduct() {
   const params = useParams();
-  const [currentProduct, setCurrentProduct] = useFetchDB(
+  const [currentProduct] = useFetchDB(
     [],
     `categories/${params.categoryNum}/${params.categoryName}/${params.index}`
   );
-
-  console.log(currentProduct);
-
-  // const [currentProduct, setCurrentProduct] = useState({});
-  // const params = useParams();
-
-  // useEffect(() => {
-  //   let ignore = true;
-
-  //   if (ignore) {
-  //     onValue(
-  //       ref(db, `categories/${params.productId}/${params.productNum}`),
-  //       snapshot => {
-  //         const data = snapshot.val();
-  //         setCurrentProduct(data);
-  //       }
-  //     );
-  //   }
-
-  //   return () => {
-  //     ignore = false;
-  //   };
-  // }, [params]);
 
   return (
     <div className='w-full bg-white p-4 rounded-xl sm:flex'>
