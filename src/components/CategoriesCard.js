@@ -6,8 +6,8 @@ function CategoriesCard({ categories }) {
     <>
       {categories.map((cat, index) => {
         return (
-          <Link to={`/home/${index}/${Object.keys(cat)}`}>
-            <Card key={cat}>
+          <Card key={Object.keys(cat)[0]}>
+            <Link to={`/home/${index}/${Object.keys(cat)}`}>
               <div className='h-4/5'>
                 <img
                   className='w-full h-full object-scale-down rounded-md '
@@ -20,8 +20,8 @@ function CategoriesCard({ categories }) {
                   {Object.keys(cat)}
                 </h1>
               </div>
-            </Card>
-          </Link>
+            </Link>
+          </Card>
         );
       })}
     </>

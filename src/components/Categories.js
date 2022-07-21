@@ -4,13 +4,10 @@ import useFetchDB from '../hooks/useFetchDB';
 
 function Categories() {
   const params = useParams();
-  const [products, setProducts] = useFetchDB(
+  const [products] = useFetchDB(
     [],
     `categories/${params.categoryNum}/${params.categoryName}`
   );
-
-  console.log(params);
-  console.log(`categories/${params.categoryNum}/${params.categoryName}`);
 
   return products.map((prod, index) => {
     return (

@@ -11,20 +11,13 @@ function Menu(props) {
       </div>
 
       <ul>
-        <Link to='/search'>
-          <div className='flex items-center'>
-            <input
-              className='rounded-xl px-2'
-              type='search'
-              placeholder='Search...'
-            />
-            <SearchIcon className='w-5 mr-6 mx-2' />
-          </div>
+        <Link to='/home' className='my-2'>
+          Home
         </Link>
-
-        <li className='my-2'>Home</li>
         <li className='my-2'>Cart</li>
-        <li className='my-2'>Log In</li>
+        <Link to='/login' className='my-2'>
+          Log In
+        </Link>
       </ul>
     </div>
   );
