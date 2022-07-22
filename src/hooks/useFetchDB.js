@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { onValue, ref } from 'firebase/database';
 import { db } from '../firebase/firebase-config';
 
-const useFetchDB = (initialValue, endpoint, isBadData) => {
+const useFetchDB = (initialValue, endpoint) => {
   const [state, setState] = useState(initialValue);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const useFetchDB = (initialValue, endpoint, isBadData) => {
     return () => {
       ignore = false;
     };
-  }, [endpoint, isBadData]);
+  }, [endpoint]);
 
   return [state, setState];
 };

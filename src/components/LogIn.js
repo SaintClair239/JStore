@@ -1,15 +1,13 @@
-import { useRef, useEffect, useContext } from 'react';
+import { useRef, useContext } from 'react';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInAnonymously,
-  onAuthStateChanged,
   signInWithPopup,
 } from 'firebase/auth';
 import { auth } from '../firebase/firebase-config';
 import { useNavigate } from 'react-router-dom';
-import AuthContext from '../context/AuthContext';
 import { onValue, ref, set } from 'firebase/database';
 import { db } from '../firebase/firebase-config';
 import CartContext from '../context/CartContext';
@@ -18,8 +16,7 @@ function LogIn() {
   const navigate = useNavigate();
   const emailRef = useRef('');
   const passwordRef = useRef('');
-  const { setCurrentUser } = useContext(AuthContext);
-  const { cartState } = useContext(CartContext);
+  const { cartState, cartDispatch } = useContext(CartContext);
 
   const addUserToDatabase = user => {
     let data = '';
@@ -29,6 +26,8 @@ function LogIn() {
 
     if (!data) {
       set(ref(db, 'users/' + user), cartState);
+    } else {
+      cartDispatch({ type: 'SET_CART_STATE', payload: data });
     }
   };
 

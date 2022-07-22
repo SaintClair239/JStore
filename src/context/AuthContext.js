@@ -7,7 +7,6 @@ const AuthContext = createContext(null);
 
 export const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState('');
-  const navigate = useNavigate();
 
   useEffect(() => {
     let ignore = false;
@@ -16,9 +15,6 @@ export const AuthContextProvider = ({ children }) => {
         if (user) {
           const uid = user.uid;
           setCurrentUser(uid);
-          console.log(uid);
-
-          // ...
         } else {
           setCurrentUser(null);
         }
