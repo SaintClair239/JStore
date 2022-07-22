@@ -1,5 +1,8 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useContext } from 'react';
 import useFetchDB from '../hooks/useFetchDB';
+import CartContext from '../context/CartContext';
+import AuthContext from '../context/AuthContext';
 
 function AboutProduct() {
   const params = useParams();
@@ -7,6 +10,9 @@ function AboutProduct() {
     [],
     `categories/${params.categoryNum}/${params.categoryName}/${params.index}`
   );
+  const { cartState, cartDispatch } = useContext(CartContext);
+  const { currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   return (
     <div className='w-full bg-white p-4 rounded-xl sm:flex'>
@@ -25,7 +31,19 @@ function AboutProduct() {
 
         <div className='flex justify-between items-center text-lg pt-4 font-bold'>
           <p className='mx-2'>{`$${currentProduct.price}`}</p>
-          <button className='mx-2 uppercase p-3 bg-cyan-400'>
+          <button
+            className='mx-2 uppercase p-3 bg-cyan-400'
+            onClick={
+              currentUser
+                ? () => {
+                    cartDispatch({
+                      type: 'ADD_TO_CART',
+                      payload: currentProduct,
+                    });
+                  }
+                : () => navigate('/login')
+            }
+          >
             Add to cart
           </button>
         </div>
