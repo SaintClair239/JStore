@@ -4,16 +4,23 @@ import useFetchDB from '../hooks/useFetchDB';
 import CartContext from '../context/CartContext';
 import AuthContext from '../context/AuthContext';
 
-function AboutProduct() {
+const AboutProduct = () => {
   const params = useParams();
   const [currentProduct] = useFetchDB(
-    [],
     `categories/${params.categoryNum}/${params.categoryName}/${params.index}`
   );
-  const { cartState, cartDispatch, updateUserCartDatabase } =
-    useContext(CartContext);
+  const { cartDispatch } = useContext(CartContext);
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const onClickHandler = () => {
+    currentUser
+      ? cartDispatch({
+          type: 'ADD_TO_CART',
+          payload: currentProduct,
+        })
+      : navigate('/login');
+  };
 
   return (
     <div className='w-full bg-white p-4 rounded-xl sm:flex'>
@@ -26,7 +33,7 @@ function AboutProduct() {
           {currentProduct.name}
         </h1>
         <div className='py-2 border-b-2'>
-          <h2 className='mb-2 font-bold'>PRODUCT DESCRIPTION</h2>
+          <h2 className='mb-2 font-bold uppercase'>Product Description</h2>
           <p>{currentProduct.description}</p>
         </div>
 
@@ -34,16 +41,7 @@ function AboutProduct() {
           <p className='mx-2'>{`$${currentProduct.price}`}</p>
           <button
             className='mx-2 uppercase p-3 bg-cyan-400'
-            onClick={
-              currentUser
-                ? () => {
-                    cartDispatch({
-                      type: 'ADD_TO_CART',
-                      payload: currentProduct,
-                    });
-                  }
-                : () => navigate('/login')
-            }
+            onClick={onClickHandler}
           >
             Add to cart
           </button>
@@ -51,6 +49,6 @@ function AboutProduct() {
       </div>
     </div>
   );
-}
+};
 
 export default AboutProduct;

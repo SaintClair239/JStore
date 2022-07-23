@@ -1,4 +1,4 @@
-import { useRef, useContext } from 'react';
+import { useRef, useState } from 'react';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -9,10 +9,33 @@ import {
 import { auth } from '../firebase/firebase-config';
 import { useNavigate } from 'react-router-dom';
 
-function LogIn() {
+const LogIn = () => {
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   const emailRef = useRef('');
   const passwordRef = useRef('');
+
+  const errorHandler = error => {
+    if (error.code === 'auth/user-not-found') {
+      setError('User is not found.');
+    } else if (error.code === 'auth/email-already-in-use') {
+      setError('Email is already in use.');
+    } else if (error.code === 'auth/invalid-email') {
+      setError('Email is invalid');
+    } else if (error.code === 'auth/invalid-credential') {
+      setError('Credentials are invalid.');
+    } else if (error.code === 'auth/wrong-password') {
+      setError('Wrong password.');
+    } else if (error.code === 'auth/user-mismatch') {
+      setError('User mismatch');
+    } else if (error.code === 'auth/weak-password') {
+      setError('Password too weak.');
+    } else {
+      setError(error.message);
+    }
+
+    console.log(error.code);
+  };
 
   const signUp = e => {
     e.preventDefault();
@@ -23,16 +46,11 @@ function LogIn() {
       passwordRef.current.value
     )
       .then(userCredential => {
-        // Signed in
         const user = userCredential.user;
-        console.log(user.uid);
         navigate(-1);
       })
       .catch(error => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage);
-        // ..
+        errorHandler(error);
       });
   };
 
@@ -44,15 +62,11 @@ function LogIn() {
       passwordRef.current.value
     )
       .then(userCredential => {
-        // Signed in
         const user = userCredential.user;
-        console.log(user);
         navigate(-1);
-        // ...
       })
       .catch(error => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        errorHandler(error);
       });
   };
 
@@ -62,46 +76,27 @@ function LogIn() {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then(result => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        // The signed-in user info.
         const user = result.user;
         navigate(-1);
-        // ...
       })
       .catch(error => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
+        errorHandler(error);
       });
   };
 
   const signInAsGuest = () => {
     signInAnonymously(auth)
-      .then(userCredential => {
-        const user = userCredential.user;
-
-        navigate(-1);
-        // Signed in..
-      })
+      .then(navigate(-1))
       .catch(error => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage);
-        // ...
+        errorHandler(error);
       });
   };
 
   return (
     <>
       <div className='bg-white p-[5%] rounded-2xl  w-full max-w-xl'>
-        <h1>Sign up or sign in. </h1>
+        <h1 className='font-bold uppercase'>Sign up or sign in. </h1>
+        <p className='text-red-600'>{error}</p>
         <form className='flex flex-col mt-4'>
           <div className='my-4 flex flex-col'>
             <label htmlFor='email'>Email:</label>
@@ -147,6 +142,6 @@ function LogIn() {
       </div>
     </>
   );
-}
+};
 
 export default LogIn;

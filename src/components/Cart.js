@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import CartContext from '../context/CartContext';
 import CartProducts from './CartProducts';
 
@@ -16,8 +16,10 @@ const Cart = () => {
   return (
     <div className='bg-white w-full p-4 rounded-xl'>
       <div className='flex justify-between border-b-2 pb-2'>
-        <p>Your items</p>
-        <p>Total:{isCartEmpty ? 0 : totalAmount.toFixed(2)}</p>
+        <p className='font-bold'>Your items</p>
+        <p className='font-bold'>
+          Total: ${isCartEmpty ? 0 : totalAmount.toFixed(2)}
+        </p>
       </div>
 
       {isCartEmpty ? (

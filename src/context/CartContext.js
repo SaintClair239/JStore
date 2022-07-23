@@ -88,11 +88,8 @@ export const CartContextProvider = ({ children }) => {
       if (currentUser) {
         onValue(ref(db, 'users/' + currentUser), snapshot => {
           const data = snapshot.val();
-          console.log(Boolean(data));
           if (!data) {
-            console.log('updated cart on first try');
             cartDispatch({ type: 'RESET' });
-            console.log(cartState);
             set(ref(db, 'users/' + currentUser), ['Your cart is empty!']);
           } else {
             console.log(data);
@@ -109,7 +106,6 @@ export const CartContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (currentUser) {
-      console.log(cartState);
       set(ref(db, 'users/' + currentUser), cartState);
     }
   }, [cartState]);
