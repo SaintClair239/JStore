@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Card(props) {
+const Card = props => {
   const className = props.className;
   return (
     <div
@@ -9,6 +9,6 @@ function Card(props) {
       {props.children}
     </div>
   );
-}
+};
 
 export default Card;

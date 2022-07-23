@@ -9,7 +9,7 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../firebase/firebase-config';
 import AuthContext from '../context/AuthContext';
 
-function Header() {
+const Header = () => {
   const { currentUser } = useContext(AuthContext);
   const [toggleMenu, setToggleMenu] = useState(false);
 
@@ -52,11 +52,13 @@ function Header() {
           </div>
         </Container>
 
-        {toggleMenu && <Overlay />}
+        {toggleMenu && <Overlay onClick={menuHandler} />}
       </div>
-      {toggleMenu && <Menu onClick={menuHandler} />}
+      {toggleMenu && (
+        <Menu onClick={menuHandler} setToggleMenu={setToggleMenu} />
+      )}
     </nav>
   );
-}
+};
 
 export default Header;

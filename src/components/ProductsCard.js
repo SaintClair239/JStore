@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import Card from '../UI/Card';
 
-function ProductsCard({ params, prod, index }) {
+const ProductsCard = ({ params, prod, index }) => {
   return (
-    <Link
-      to={`/home/${params.categoryNum}/${params.categoryName}/${index}/${prod.id}`}
-    >
-      <Card key={prod.id}>
+    <Card>
+      <Link
+        to={`/home/${params.categoryNum}/${params.categoryName}/${index}/${prod.id}`}
+      >
         <div className='h-4/5'>
           <img
             className='w-full h-full object-scale-down rounded-md '
@@ -20,9 +20,9 @@ function ProductsCard({ params, prod, index }) {
           </h1>
           <p className='font-bold py-2'>{`$${prod.price}`}</p>
         </div>
-      </Card>
-    </Link>
+      </Link>
+    </Card>
   );
-}
+};
 
 export default ProductsCard;

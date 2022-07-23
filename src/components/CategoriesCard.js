@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import Card from '../UI/Card';
 
-function CategoriesCard({ categories }) {
+const CategoriesCard = ({ categories }) => {
   return (
     <>
       {categories.map((cat, index) => {
@@ -26,6 +26,6 @@ function CategoriesCard({ categories }) {
       })}
     </>
   );
-}
+};
 
 export default CategoriesCard;

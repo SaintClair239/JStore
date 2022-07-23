@@ -9,6 +9,7 @@ import PrivateRoutes from './utilities/PrivateRoutes';
 import { useContext } from 'react';
 import AuthContext from './context/AuthContext';
 import Cart from './components/Cart';
+import NotFound from './components/NotFound';
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -39,6 +40,7 @@ function App() {
               </PrivateRoutes>
             }
           />
+          <Route path='*' element={<NotFound />} />
         </Routes>
       </Container>
     </>
