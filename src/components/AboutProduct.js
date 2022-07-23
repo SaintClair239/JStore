@@ -10,7 +10,8 @@ function AboutProduct() {
     [],
     `categories/${params.categoryNum}/${params.categoryName}/${params.index}`
   );
-  const { cartState, cartDispatch } = useContext(CartContext);
+  const { cartState, cartDispatch, updateUserCartDatabase } =
+    useContext(CartContext);
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 

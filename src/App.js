@@ -18,21 +18,21 @@ function App() {
       <Container className='mt-4 flex justify-around flex-wrap'>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/home' element={<Home />} />
+          <Route path='home' element={<Home />} />
           <Route
-            path='/home/:categoryNum/:categoryName'
+            path='home/:categoryNum/:categoryName'
             element={<Categories />}
-          />
+          />{' '}
           <Route
-            path='/home/:categoryNum/:categoryName/:index/:productId'
+            path='home/:categoryNum/:categoryName/:index/:productId'
             element={<AboutProduct />}
           />
           <Route
-            path='/login'
+            path='login'
             element={!currentUser ? <LogIn /> : <Navigate to='/home' />}
           />
           <Route
-            path='/cart'
+            path='cart'
             element={
               <PrivateRoutes>
                 <Cart />
