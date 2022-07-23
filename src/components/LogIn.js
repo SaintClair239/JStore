@@ -8,28 +8,11 @@ import {
 } from 'firebase/auth';
 import { auth } from '../firebase/firebase-config';
 import { useNavigate } from 'react-router-dom';
-import { onValue, ref, set } from 'firebase/database';
-import { db } from '../firebase/firebase-config';
-import CartContext from '../context/CartContext';
 
 function LogIn() {
   const navigate = useNavigate();
   const emailRef = useRef('');
   const passwordRef = useRef('');
-  const { cartState, cartDispatch } = useContext(CartContext);
-
-  const addUserToDatabase = user => {
-    let data = '';
-    onValue(ref(db, 'users/' + user), snapshot => {
-      data = snapshot.val();
-    });
-
-    if (!data) {
-      set(ref(db, 'users/' + user), cartState);
-    } else {
-      cartDispatch({ type: 'SET_CART_STATE', payload: data });
-    }
-  };
 
   const signUp = e => {
     e.preventDefault();
@@ -43,7 +26,6 @@ function LogIn() {
         // Signed in
         const user = userCredential.user;
         console.log(user.uid);
-        addUserToDatabase(user.uid);
         navigate(-1);
       })
       .catch(error => {
@@ -85,7 +67,6 @@ function LogIn() {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
-        addUserToDatabase(user.uid);
         navigate(-1);
         // ...
       })
@@ -106,7 +87,6 @@ function LogIn() {
       .then(userCredential => {
         const user = userCredential.user;
 
-        addUserToDatabase(user.uid);
         navigate(-1);
         // Signed in..
       })

@@ -24,7 +24,7 @@ const Cart = () => {
         <h1>Your cart is empty!</h1>
       ) : (
         cartState.map(prod => {
-          return <CartProducts prod={prod} />;
+          return <CartProducts key={prod.id} prod={prod} />;
         })
       )}
     </div>
